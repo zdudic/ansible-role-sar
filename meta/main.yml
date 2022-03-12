@@ -1,0 +1,43 @@
+galaxy_info:
+  author: Zarko D.
+  description: Management of sar for Linux and Solaris
+
+  # Some suggested licenses:
+  # - BSD (default)
+  # - MIT
+  # - GPLv2
+  # - GPLv3
+  # - Apache
+  # - CC-BY
+  license: "Public Domain"
+
+  min_ansible_version: 2.10.7
+
+  platforms:
+    - name: OracleLunux
+      versions:
+        - 5
+        - 6
+        - 7
+        - 8
+    - name: Oracle
+      versions:
+        - 3
+    - name: Solaris
+      versions: 
+        - 10
+        - 11
+
+  galaxy_tags: 
+    - system
+    - monitoring
+    - performance
+    - sysstat
+    - accounting
+    - tools
+    - linux
+    - solaris
+
+dependencies: []
+
+...

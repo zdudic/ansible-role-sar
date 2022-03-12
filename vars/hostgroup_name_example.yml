@@ -1,0 +1,26 @@
+--- 
+
+# Example of vars for some Linux host group
+
+sar_package: "sysstat"
+
+sar_cron_file: "/etc/cron.d/sysstat"
+
+sar_log_path: "/var/log/sa"
+
+sar_log_path_mode: "0755"
+
+sar_owner: "root"
+
+sar_group: "root"
+
+sar_cron_content: |
+  #
+  # Host group: {{ host_group }}
+  #
+  # collect data every 20 min
+  20 * * * * root /usr/lib64/sa/sa1 1 1
+  # run report at 10min before midnight
+  50 23 * * * root /usr/lib64/sa/sa2 -A
+
+...

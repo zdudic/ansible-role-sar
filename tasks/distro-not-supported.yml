@@ -1,0 +1,10 @@
+---
+
+- name: This role doesn't support {{ ansible_distribution }}
+  debug:
+    msg: "This role doesn't support {{ ansible_distribution }} yet."
+
+- name: End play for {{ inventory_hostname }}
+  meta: end_host
+
+...

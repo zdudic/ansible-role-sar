@@ -1,0 +1,26 @@
+---
+
+# Vars for Ansible distribution Oracle
+
+sar_package: "sysstat"
+
+sar_cron_file: "/etc/cron.d/sysstat"
+
+sar_log_path: "/var/log/sa"
+
+sar_log_path_mode: "0755"
+
+sar_owner: "root"
+
+sar_group: "root"
+
+sar_cron_content: |
+  #
+  # sar cron for Oracle Virtual Server 3
+  #
+  # run system activity accounting tool every 15 minutes
+  */15 * * * * root /usr/lib64/sa/sa1 1 1
+  # generate a daily summary of process accounting at 23:55
+  55 23 * * * root /usr/lib64/sa/sa2 -A
+
+...

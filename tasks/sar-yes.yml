@@ -1,0 +1,31 @@
+---
+
+- name: Manage sar package (no OL5, Solaris10)
+  # skip OL5, Solaris10 - package module likely fails 
+  package:
+    name: "{{ sar_package }}"
+    state: present
+  when: 
+    ( ansible_facts['distribution'] == "Solaris" and ansible_facts['distribution_major_version'] == "11" )
+    or 
+    ( ansible_facts['distribution'] == "OracleLinux" and ansible_facts['distribution_major_version'] >= "6" )
+    or
+    ( ansible_facts['distribution'] == "Oracle" and ansible_facts['distribution_major_version'] == "3" )
+
+- name: Manage sar logging path
+  file:
+    path: "{{ sar_log_path }}"
+    state: directory
+    mode: "{{ sar_log_path_mode }}"
+    owner: "{{ sar_owner }}"
+    group: "{{ sar_group }}"
+
+- name: Manage sar cron content
+  template:
+    src: "templates/sar_cron.j2"
+    dest: "{{ sar_cron_file }}"
+    owner: "{{ sar_owner }}"
+    group: "{{ sar_group }}"
+    mode: '0600'
+
+...

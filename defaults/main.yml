@@ -1,0 +1,24 @@
+---
+
+# Default vars for sar role
+
+# This is host_group var. 
+# Host group can be all hosts for a project, or similar use case for you. 
+# Here we define default host group,
+# since we can't expect that this var is defined in inventory or while running playbook
+
+host_group: "default_host_group"
+
+# Here we define default value for var sar_cfg. 
+# Default is that sar will be configured on a host. 
+# You can overwrite this to "no" in vars/main.yml, 
+# maybe for some reason you want to skip sar config on a host/host-group 
+
+# Supported values: 
+# For positive: [Yy][Ee][Ss], Y, y 
+# For negative: [Nn][Oo], N, n
+
+default_host_group: 
+  sar_cfg: "yes"
+
+...

@@ -1,0 +1,7 @@
+---
+
+- name: SAR is not managed on {{ inventory_hostname }}
+  debug:
+    msg: "SAR is not managed on {{ inventory_hostname }}"
+
+...

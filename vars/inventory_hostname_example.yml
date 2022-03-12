@@ -1,0 +1,24 @@
+--- 
+
+# Example of vars for a linux host 
+
+sar_package: "sysstat"
+
+sar_cron_file: "/etc/cron.d/sysstat"
+
+sar_log_path: "/var/log/sa"
+
+sar_log_path_mode: "0755"
+
+sar_owner: "root"
+
+sar_group: "root"
+
+sar_cron_content: |
+  #
+  # {{ inventory_hostname }} 
+  #
+  15 * * * * root /usr/lib64/sa/sa1 1 1
+  53 23 * * * root /usr/lib64/sa/sa2 -A
+
+...

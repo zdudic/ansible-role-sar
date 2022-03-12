@@ -1,0 +1,32 @@
+---
+# tasks file for sar
+
+- name: Gather facts
+  setup:
+    gather_subset:
+      - 'min'
+
+- name: Check if distribution is supported
+  include_tasks: distro-not-supported.yml
+  when:
+    ansible_facts['distribution'] not in supported_distro_list
+
+- name: Load dymanic sar variable yml file
+  # look for specific order: host, host-group, OS
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "vars/{{ inventory_hostname }}.yml"     
+    - "vars/{{ host_group }}.yml"
+    - "vars/{{ ansible_distribution }}.yml"     
+  
+- name: Manage SAR
+  import_tasks: sar-yes.yml
+  when: 
+    lookup('vars', inventory_hostname, default=lookup('vars', host_group))['sar_cfg'] is regex('^([Yy]{1})(([Ee][Ss]){0,1})$')
+
+- name: Don't manage SAR
+  import_tasks: sar-no.yml
+  when: 
+    lookup('vars', inventory_hostname, default=lookup('vars', host_group))['sar_cfg'] is regex('^([Nn]{1})([Oo]{0,1})$')
+
+...
