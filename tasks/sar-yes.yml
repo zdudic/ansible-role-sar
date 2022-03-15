@@ -5,9 +5,9 @@
   package:
     name: "{{ sar_package }}"
     state: present
-  when: 
+  when:
     ( ansible_facts['distribution'] == "Solaris" and ansible_facts['distribution_major_version'] == "11" )
-    or 
+    or
     ( ansible_facts['distribution'] == "OracleLinux" and ansible_facts['distribution_major_version'] >= "6" )
     or
     ( ansible_facts['distribution'] == "Oracle" and ansible_facts['distribution_major_version'] == "3" )
