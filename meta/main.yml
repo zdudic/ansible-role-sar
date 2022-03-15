@@ -1,18 +1,13 @@
 galaxy_info:
   author: Zarko D.
-  description: Management of sar for Linux and Solaris
+  description: Management of SAR (System Activity Report) for Linux and Solaris
 
-  # Some suggested licenses:
-  # - BSD (default)
-  # - MIT
-  # - GPLv2
-  # - GPLv3
-  # - Apache
-  # - CC-BY
   license: "Public Domain"
 
   min_ansible_version: 2.10.7
 
+  # OracleLinux is like RedHat 
+  # Oracle is Oracle Virtual Server (OVS), like RedHat with Xen
   platforms:
     - name: OracleLunux
       versions:

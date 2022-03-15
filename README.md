@@ -3,9 +3,13 @@ Role Name: sar
 This is Ansible role for managing System Activity Report. 
 The role supports next use cases:
 
-1. Define a host (use inventory_hostname) on which this role doesn't manage sar. Maybe you have some reason for this.   
-2. Define a host group on which this role doesn't manage sar. Think of this as all hosts for a project that doesn't need sar.  
+1. Define a host (use inventory_hostname) on which this role doesn't manage sar (maybe there is some reason for this).   
+2. Define a host group on which this role doesn't manage sar (think of this as all hosts for a project that doesn't need sar).  
 3. If there is no host or host-group based use case, then role does default sar configuration, default is based on a distribution.  
+
+Min Ansible version
+-------------------
+2.10.7
 
 Requirements
 ------------
@@ -17,41 +21,25 @@ Role Variables
 1. Default variables (defaults/main.yml):
 
 ```
-# default host group
-host_group: "default_host_group"
-
-# default sar config for default host group, 
-# this is naturally "yes" since you want the role to manage sar
-default_host_group:
-  sar_cfg: "yes"
-
+# default sar configuration is naturally "yes"
+sar_cfg: "yes"
 ```
 
-2. Your host/host-group based sar_cfg variable (vars/main.yml)
+2. The variable {{ inventory_hostname }} is used if there is specific sar configuration for that host. 
+
+3. The variable {{ host_group }} is used if there is specific sar configuration for that group of hosts. 
+   This variable can be added in the inventory, see inventory example below.  
+
+4. Define supported distros by this role (vars/main.yml)
 
 ```
-# Here, likely you'll define hosts/host-groups that don't need sar to be managed
-
-# Define your host (use inventory_hostname) sar_cfg variable
-inventory_hostname_1:
-  sar_cfg: "N"
-
-# Define your host group sar_cfg variable
-host_group_name_1:
-  sar_cfg: "N"
-
-# Supported values:
-# For positive: [Yy][Ee][Ss], Y, y
-# For negative: [Nn][Oo], N, n
-
-# Additionally, this var defines list of supported distribution:
-supported_distro_list:
+supported_distro_list_for_sar:
   - "OracleLinux"
   - "Oracle"
   - "Solaris"
 ```
 
-3. Dymanic variables (vars/main.yml)
+5. Dymanic variables (vars/main.yml)
 
 ```
 # These are variables that are dynamically loaded in the next order (first come, first served): 
@@ -92,9 +80,9 @@ ansible_ssh_private_key_file='/home/some-user/.ssh/id_rsa'
 
 [all]
 # this host is member of some host group, there is variable host_group. 
-hostname-1 host_group=group1
-# this host doesn't have host_group variable, hence default host group is used
-hostname-2 
+hostname-one host_group=group-one
+# this host doesn't have host_group variable
+hostname-two
 ```
 
 ```
@@ -112,7 +100,8 @@ Maintenance and support
 -----------------------
 
 ```
-1. To disable sar management by this role, create host/host-group based sar_cfg var with value "no". 
+1. To disable sar management by this role, in vars, create inventory_hostname.yml 
+  or host-group.yml, and define sar_cfg as "No". 
 
 2. For hostname, use Ansible var {{ inventory_hostname }}
 
@@ -120,9 +109,12 @@ Maintenance and support
    vars/hostgroup_name_example.yml, and create something like that for your hosts. 
 
 4. To add support for new distribution:
+
 4.1 Add distro name to supported_distro_list var (list type)
-4.2 Create vars/{{ ansible_distribution }}.yml with desired sar vars (as example, see yml files for present distros)   
-4.3 In tasks/sar-yes.yml, you'll need to add new {{ ansible_distribution }} in the task "Manage sar package (no OL5, Solaris10)"
+4.2 Create vars/{{ ansible_distribution }}.yml with desired sar vars 
+    (as example, see yml files for present distros)   
+4.3 In tasks/sar-yes.yml, you'll need to add new {{ ansible_distribution }} in 
+    the task "Manage sar package (no OL5, Solaris10)"
 
 5. Note about task "Manage sar package (no OL5, Solaris10)" in sar-yes.yml. 
    I've excluded OL5 and Solaris 10, since module 'package' likely fails on them. 

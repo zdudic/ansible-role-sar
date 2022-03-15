@@ -1,22 +1,25 @@
 --- 
 
-# Example of vars for a linux host 
+# Example of vars for a Linux {{ inventory_hostname }}
 
+# to DISABLE sar configuration, set this value to no.
+# Supported values: 
+# For positive: [Yy][Ee][Ss], Y, y 
+# For negative: [Nn][Oo], N, n
+# sar_cfg: "No"
+
+# to ENABLE specific sar configuration, define these vars
+# sar_cfg is 'yes' by default 
 sar_package: "sysstat"
-
 sar_cron_file: "/etc/cron.d/sysstat"
-
 sar_log_path: "/var/log/sa"
-
 sar_log_path_mode: "0755"
-
 sar_owner: "root"
-
 sar_group: "root"
-
 sar_cron_content: |
   #
-  # {{ inventory_hostname }} 
+  # Sar cron for {{ inventory_hostname }} 
+  # {{ ansible_distribution }}
   #
   15 * * * * root /usr/lib64/sa/sa1 1 1
   53 23 * * * root /usr/lib64/sa/sa2 -A

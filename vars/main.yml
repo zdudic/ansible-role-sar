@@ -1,44 +1,9 @@
 ---
 
 # Define list with supported distributions
-supported_distro_list:
+supported_distro_list_for_sar:
   - "OracleLinux"
   - "Oracle"
   - "Solaris"
-
-
-# The var sar_cfg defines if sar is configured or not. 
-# Default is yes, see defaults/main.yml
-
-# The configuration here can be:
-# (1) host specific
-# (2) host-group specific (think of this as hosts part of a project or something similar) 
-# Likely you'll define here some hosts or host groups that don't need sar managed by this role
-
-# Supported values: 
-# For positive: [Yy][Ee][Ss], Y, y 
-# For negative: [Nn][Oo], N, n
-
-#--------------
-# Host group:
-#--------------
-
-host_group_name_1:
-  sar_cfg: "no"
-
-host_group_name_2:
-  sar_cfg: "no"
-
-
-#-------------------------------
-# Host (use inventory hostname): 
-#-------------------------------
-
-inventory_hostname_1:
-  sar_cfg: "no"
-
-inventory_hostname_2:
-  sar_cfg: "no"
-
 
 ...
