@@ -5,7 +5,7 @@ The role supports next use cases:
 
 1. Define a host (use inventory_hostname) on which this role doesn't manage sar (maybe there is some reason for this).   
 2. Define a host group on which this role doesn't manage sar (think of this as all hosts for a project that doesn't need sar).  
-3. If there is no host or host-group based use case, then role does default sar configuration, default is based on a distribution.  
+3. If there is no host or host-group based use case, then role does default sar configuration, default is based on os-family.  
 
 Min Ansible version
 -------------------
@@ -30,22 +30,13 @@ sar_cfg: "yes"
 3. The variable {{ host_group }} is used if there is specific sar configuration for that group of hosts. 
    This variable can be added in the inventory, see inventory example below.  
 
-4. Define supported distros by this role (vars/main.yml)
-
-```
-supported_distro_list_for_sar:
-  - "OracleLinux"
-  - "Oracle"
-  - "Solaris"
-```
-
-5. Dymanic variables (vars/main.yml)
+4. Dymanic variables (vars/main.yml)
 
 ```
 # These are variables that are dynamically loaded in the next order (first come, first served): 
 # (1) host based
 # (2) host-group based
-# (3) Ansible distribution
+# (3) Ansible os-family
 
 # Example for a Linux host
 sar_package: "sysstat"
@@ -92,7 +83,7 @@ hostname-two
   gather_facts: no
   become: yes
   roles:
-    - role: sar
+    - role: ansible-role-sar
 ...
 ```
 
@@ -101,23 +92,12 @@ Maintenance and support
 
 ```
 1. To disable sar management by this role, in vars, create inventory_hostname.yml 
-  or host-group.yml, and define sar_cfg as "No". 
+   or host-group.yml, and define sar_cfg as "No". 
 
 2. For hostname, use Ansible var {{ inventory_hostname }}
 
 3. If you have host/host-group based sar config, review files vars/inventory_hostname_example.yml and 
    vars/hostgroup_name_example.yml, and create something like that for your hosts. 
-
-4. To add support for new distribution:
-
-4.1 Add distro name to supported_distro_list var (list type)
-4.2 Create vars/{{ ansible_distribution }}.yml with desired sar vars 
-    (as example, see yml files for present distros)   
-4.3 In tasks/sar-yes.yml, you'll need to add new {{ ansible_distribution }} in 
-    the task "Manage sar package (no OL5, Solaris10)"
-
-5. Note about task "Manage sar package (no OL5, Solaris10)" in sar-yes.yml. 
-   I've excluded OL5 and Solaris 10, since module 'package' likely fails on them. 
 ```
 
 Author Information

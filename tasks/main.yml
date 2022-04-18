@@ -6,18 +6,13 @@
     gather_subset:
       - 'min'
 
-- name: Check if distribution is supported
-  include_tasks: distro-not-supported.yml
-  when:
-    ansible_facts['distribution'] not in supported_distro_list_for_sar
-
 - name: Load dymanic sar variable yml file
-  # look for specific order: host, host-group, OS
+  # look for specific order: host, host-group, os-family
   include_vars: "{{ item }}"
   with_first_found:
     - "vars/{{ inventory_hostname }}.yml"
     - "vars/{{ host_group }}.yml"
-    - "vars/{{ ansible_distribution }}.yml"
+    - "vars/{{ ansible_os_family }}.yml"
 
 - name: Manage SAR
   import_tasks: sar-yes.yml

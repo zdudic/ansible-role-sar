@@ -9,23 +9,21 @@ galaxy_info:
   # OracleLinux is like RedHat 
   # Oracle is Oracle Virtual Server (OVS), like RedHat with Xen
   platforms:
-    - name: OracleLunux
+    - name: EL
       versions:
-        - 5
-        - 6
-        - 7
-        - 8
-    - name: OVS
+        - all
+    - name: Fedora
       versions:
-        - 3
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
     - name: Solaris
       versions: 
-        - 10
-        - 11.0
-        - 11.1
-        - 11.2
-        - 11.3
-        - 11.4
+        - all
 
   galaxy_tags: 
     - system

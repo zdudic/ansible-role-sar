@@ -1,9 +1,5 @@
 ---
 
-# Define list with supported distributions
-supported_distro_list_for_sar:
-  - "OracleLinux"
-  - "Oracle"
-  - "Solaris"
+#
 
 ...

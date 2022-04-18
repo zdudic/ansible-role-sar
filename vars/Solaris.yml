@@ -1,16 +1,17 @@
 ---
 
-# Vars for distribution Solaris
+# Vars for ansible_os_family Solaris
 
 sar_package: "system/accounting/legacy-accounting"
 sar_cron_file: "/var/spool/cron/crontabs/sys"
 sar_log_path: "/var/adm/sa"
 sar_log_path_mode: "0775"
+sar_cron_file_mode: "0700"
 sar_owner: "adm"
 sar_group: "sys"
 sar_cron_content: |
   # 
-  # Sar cron for {{ ansible_distribution }}
+  # Sar cron for {{ ansible_os_family }} family
   #
   # collect data
   */10 * * * * /usr/lib/sa/sa1
