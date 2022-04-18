@@ -43,6 +43,7 @@ sar_package: "sysstat"
 sar_cron_file: "/etc/cron.d/sysstat"
 sar_log_path: "/var/log/sa"
 sar_log_path_mode: "0755"
+sar_cron_file_mode: "0770"
 sar_owner: "root"
 sar_group: "root"
 sar_cron_content: |
